@@ -17,6 +17,29 @@
             "enableSqlInformationDebugger": true,
             "tenant": "default",
             "usePublicURLFromServer": true
+        },
+        {
+            "name": "AL: Session Debugger",
+            "request": "attach",
+            "type": "al",
+            "server": "http://bc",
+            "serverInstance": "BC",
+            "authentication": "Windows",
+            "port": 7049,
+            "sessionId": 174,
+            "breakOnNext": "WebClient",
+            "breakOnError": "ExcludeTry"
+        },
+        {
+            "name": "AL: Generated Snapshot request",
+            "request": "snapshotInitialize",
+            "type": "al",
+            "server": "http://bc",
+            "serverInstance": "BC",
+            "authentication": "Windows",
+            "port": 7049,
+            "breakOnNext": "WebClient",
+            "executionContext": "DebugAndProfile"
         }
     ]
 }

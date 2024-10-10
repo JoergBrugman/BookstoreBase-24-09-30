@@ -33,11 +33,11 @@ table 50100 "BSB Book"
         {
             Caption = 'Blocked';
         }
-        field(5; Type; Option)
+        field(5; Type; enum "BSB Book Type")
         {
             Caption = 'Type';
-            OptionMembers = " ",Hardcover,Paperback;
-            OptionCaption = ' ,Hardcover,Paperback';
+            // OptionMembers = " ",Hardcover,Paperback;
+            // OptionCaption = ' ,Hardcover,Paperback';
         }
         field(7; Created; Date)
         {
@@ -113,10 +113,31 @@ table 50100 "BSB Book"
         TestField(Blocked, false);
     end;
 
+    /// <summary>
+    /// Shows Book Card on base of given BookNo.
+    /// </summary>
+    /// <param name="BookNo">BookNo. to read the Book Record</param>
+    procedure ShowCard(BookNo: Code[20])
+    var
+        BSBBook: Record "BSB Book";
+    begin
+        if not BSBBook.Get(BookNo) then
+            exit;
+        BSBBook.ShowCard();
+    end;
+
+    /// <summary>
+    /// Shows the Book Card on base of Rec
+    /// </summary>
+    procedure ShowCard()
+    begin
+        Page.Run(Page::"BSB Book Card", Rec);
+    end;
+
     var
         OnDeleteBookErr: Label 'A %1 cannot be deleted', Comment = 'de-DE=Ein %1 kann nicht gelöscht werden';
 
     //[x] Created automatisch setzten
     //[x] Last Date Modified automatisch setzten
-    //[ ] Buch darf nicht gelöscht werden
+    //[x] Buch darf nicht gelöscht werden
 }
