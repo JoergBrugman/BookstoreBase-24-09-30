@@ -1,14 +1,22 @@
-report 50100 "BSB Customer List"
+report 50101 "BSB Customer by Salesp."
 {
-    Caption = 'Customer - List';
+    Caption = 'Customer by Salesperson';
     ApplicationArea = All;
     UsageCategory = ReportsAndAnalysis;
-    RDLCLayout = 'BSBCustomerList.Report.rdlc';
+    RDLCLayout = 'BSBCustomerbySalesp.Report.rdlc';
 
     dataset
     {
+        dataitem(SingleRowData; Integer)
+        {
+            DataItemTableView = sorting(Number) where(Number = const(1));
+            column(COMPANYNAME; CompanyProperty.DisplayName()) { }
+
+        }
         dataitem(Customer; Customer)
         {
+            RequestFilterFields = "No.", "Salesperson Code", "Customer Posting Group";
+
             column(No_Customer; "No.") { IncludeCaption = true; }
             column(Name_Customer; Name) { IncludeCaption = true; }
             column(CountryRegionCode_Customer; "Country/Region Code") { IncludeCaption = true; }
@@ -16,26 +24,21 @@ report 50100 "BSB Customer List"
             column(SalesLCY_Customer; "Sales (LCY)") { IncludeCaption = true; }
             column(BalanceLCY_Customer; "Balance (LCY)") { IncludeCaption = true; }
             column(ProfitLCY_Customer; "Profit (LCY)") { IncludeCaption = true; }
-            column(Name_SalespersonPurchaser; SalespersonPurchaser.Name) { IncludeCaption = true; }
 
             trigger OnAfterGetRecord()
             begin
                 // Unterdrücken von Debitoren, die in allen Beträgen 0 haben
                 if ("Sales (LCY)" = 0) and ("Profit (LCY)" = 0) and ("Balance (LCY)" = 0) then
                     CurrReport.Skip();
-
                 // Country/Region Code für inländische Debitoren patchen
                 if "Country/Region Code" = '' then
                     "Country/Region Code" := CompanyInformation."Country/Region Code";
-
-                if not SalespersonPurchaser.Get("Salesperson Code") then
-                    SalespersonPurchaser.Init();
             end;
         }
     }
     labels
     {
-        ReportCaptionLbl = 'Customer - List';
+        ReportCaptionLbl = 'Customer by Salesperson';
     }
 
     trigger OnPreReport()
@@ -44,6 +47,5 @@ report 50100 "BSB Customer List"
     end;
 
     var
-        SalespersonPurchaser: Record "Salesperson/Purchaser";
         CompanyInformation: Record "Company Information";
 }
