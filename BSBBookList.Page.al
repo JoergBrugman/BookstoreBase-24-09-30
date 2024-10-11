@@ -43,4 +43,67 @@ page 50101 "BSB Book List"
             systempart(Notes; Notes) { ApplicationArea = All; }
         }
     }
+    actions
+    {
+        area(Processing)
+        {
+            action("1-Klassisch")
+            {
+                Caption = '1-Klassisch';
+                ApplicationArea = All;
+                Image = Process;
+
+                trigger OnAction()
+                begin
+                    case Rec.Type of
+                        "BSB Book Type"::" ":
+                            begin
+                                StartDeliverBookDefault();
+                                StartDeployBookDefault();
+                            end;
+                        "BSB Book Type"::Hardcover:
+                            begin
+                                StartDeliverBookHardcover();
+                                StartDeployBookHardcover();
+                            end;
+                        "BSB Book Type"::Paperback:
+                            begin
+                                StartDeliverBookPaperback();
+                                StartDeployBookPaperback();
+                            end;
+                    end;
+                end;
+            }
+        }
+    }
+
+    local procedure StartDeliverBookDefault()
+    begin
+        Message('Procedure StartDeliverBookDefault not implemented.');
+    end;
+
+    local procedure StartDeployBookDefault()
+    begin
+        Message('Procedure StartDeployBookDefault not implemented.');
+    end;
+
+    local procedure StartDeliverBookHardcover()
+    begin
+        Error('Aus Lager picken');
+    end;
+
+    local procedure StartDeployBookHardcover()
+    begin
+        Error('Versand UPS PREMIUM');
+    end;
+
+    local procedure StartDeliverBookPaperback()
+    begin
+        Error('Print on Demand');
+    end;
+
+    local procedure StartDeployBookPaperback()
+    begin
+        Error('Versand DPD Standard');
+    end;
 }
