@@ -137,6 +137,21 @@ page 50101 "BSB Book List"
                     BSBBookTypeProcess.StartDeliverBook();
                 end;
             }
+            action("4-Enum+Interface")
+            {
+                Caption = '4-Enum+Interface';
+                ApplicationArea = All;
+                Image = Process;
+
+                trigger OnAction()
+                var
+                    BSBBookTypeProcess: Interface "BSB Book Type Process";
+                begin
+                    BSBBookTypeProcess := Rec.Type;
+                    BSBBookTypeProcess.StartDeployBook();
+                    BSBBookTypeProcess.StartDeliverBook();
+                end;
+            }
         }
     }
 
