@@ -74,9 +74,41 @@ page 50101 "BSB Book List"
                     end;
                 end;
             }
+
+            action("2-Codeunits")
+            {
+                Caption = '2-Codeunits';
+                ApplicationArea = All;
+                Image = Process;
+
+                trigger OnAction()
+                var
+                    BSBBookTypeDefaultImpl: Codeunit "BSB Book Type Default Impl.";
+                    BSBBookTypeHardcoverImpl: Codeunit "BSB Book Type Hardcover Impl.";
+                    BSBBookTypePaperbackImpl: Codeunit "BSB Book Type Paperback Impl.";
+                begin
+                    case Rec.Type of
+                        "BSB Book Type"::" ":
+                            begin
+                                BSBBookTypeDefaultImpl.StartDeployBook();
+                                BSBBookTypeDefaultImpl.StartDeliverBook();
+                            end;
+                        "BSB Book Type"::Hardcover:
+                            begin
+                                BSBBookTypeHardcoverImpl.StartDeployBook();
+                                BSBBookTypeHardcoverImpl.StartDeliverBookHard();
+                            end;
+                        "BSB Book Type"::Paperback:
+                            begin
+                                BSBBookTypePaperbackImpl.StartDeployBook();
+                                BSBBookTypePaperbackImpl.StartDeliverBook();
+                            end;
+                    end;
+                end;
+            }
         }
     }
-
+    #region Local Procedures
     local procedure StartDeliverBookDefault()
     begin
         Message('Procedure StartDeliverBookDefault not implemented.');
@@ -106,4 +138,5 @@ page 50101 "BSB Book List"
     begin
         Message('Versand DPD Standard');
     end;
+    #endregion
 }
