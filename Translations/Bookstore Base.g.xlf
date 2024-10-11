@@ -248,6 +248,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BSB Book List - Action 2-Codeunits - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 2834728084 - Action 3895224933 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>3-Interface</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BSB Book List - Action 3-Interface - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 43726430 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Customer by Salesperson</source>
           <note from="Developer" annotates="general" priority="2"></note>

@@ -96,19 +96,50 @@ page 50101 "BSB Book List"
                         "BSB Book Type"::Hardcover:
                             begin
                                 BSBBookTypeHardcoverImpl.StartDeployBook();
-                                BSBBookTypeHardcoverImpl.StartDeliverBookHard();
+                                BSBBookTypeHardcoverImpl.StartDeliverBook();
                             end;
                         "BSB Book Type"::Paperback:
                             begin
                                 BSBBookTypePaperbackImpl.StartDeployBook();
                                 BSBBookTypePaperbackImpl.StartDeliverBook();
                             end;
+                    // else begin
+                    //     OnProcessBookType(Rec);
+                    // end;
                     end;
+                end;
+            }
+            action("3-Interface")
+            {
+                Caption = '3-Interface';
+                ApplicationArea = All;
+                Image = Process;
+
+                trigger OnAction()
+                var
+                    BSBBookTypeDefaultImpl: Codeunit "BSB Book Type Default Impl.";
+                    BSBBookTypeHardcoverImpl: Codeunit "BSB Book Type Hardcover Impl.";
+                    BSBBookTypePaperbackImpl: Codeunit "BSB Book Type Paperback Impl.";
+                    BSBBookTypeProcess: Interface "BSB Book Type Process";
+                begin
+                    case Rec.Type of
+                        "BSB Book Type"::" ":
+                            BSBBookTypeProcess := BSBBookTypeDefaultImpl;
+                        "BSB Book Type"::Hardcover:
+                            BSBBookTypeProcess := BSBBookTypeHardcoverImpl;
+                        "BSB Book Type"::Paperback:
+                            BSBBookTypeProcess := BSBBookTypePaperbackImpl;
+                        else begin
+                            OnProcessBookType(Rec, BSBBookTypeProcess);
+                        end;
+                    end;
+                    BSBBookTypeProcess.StartDeployBook();
+                    BSBBookTypeProcess.StartDeliverBook();
                 end;
             }
         }
     }
-    #region Local Procedures
+
     local procedure StartDeliverBookDefault()
     begin
         Message('Procedure StartDeliverBookDefault not implemented.');
@@ -138,5 +169,9 @@ page 50101 "BSB Book List"
     begin
         Message('Versand DPD Standard');
     end;
-    #endregion
+
+    [IntegrationEvent(false, false)]
+    local procedure OnProcessBookType(Rec: Record "BSB Book"; var BSBBookTypeProcess: interface "BSB Book Type Process")
+    begin
+    end;
 }

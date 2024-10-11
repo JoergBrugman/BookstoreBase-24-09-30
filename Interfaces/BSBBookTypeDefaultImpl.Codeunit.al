@@ -1,4 +1,4 @@
-codeunit 50101 "BSB Book Type Default Impl."
+codeunit 50101 "BSB Book Type Default Impl." implements "BSB Book Type Process"
 {
     procedure StartDeliverBook()
     begin

@@ -1,6 +1,6 @@
-codeunit 50102 "BSB Book Type Hardcover Impl."
+codeunit 50102 "BSB Book Type Hardcover Impl." implements "BSB Book Type Process"
 {
-    procedure StartDeliverBookHard()
+    procedure StartDeliverBook()
     begin
         Message('Aus Lager picken');
     end;

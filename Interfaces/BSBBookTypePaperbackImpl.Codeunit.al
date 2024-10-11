@@ -1,4 +1,4 @@
-codeunit 50103 "BSB Book Type Paperback Impl."
+codeunit 50103 "BSB Book Type Paperback Impl." implements "BSB Book Type Process"
 {
     procedure StartDeliverBook()
     begin
