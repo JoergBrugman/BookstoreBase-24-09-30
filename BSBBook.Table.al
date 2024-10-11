@@ -101,17 +101,18 @@ table 50100 "BSB Book"
     end;
 
     trigger OnDelete()
+    var
+        IsHandled: Boolean;
     begin
+        OnBeforeOnDelete(Rec, xRec, IsHandled);
+        if IsHandled then
+            exit;
+
         Error(OnDeleteBookErr, TableCaption);
     end;
 
-    /// <summary>
-    /// The fuction throws an error, if Book ist blocked
-    /// </summary>
-    procedure TestBlocked()
-    begin
-        TestField(Blocked, false);
-    end;
+    var
+        OnDeleteBookErr: Label 'A %1 cannot be deleted', Comment = 'de-DE=Ein %1 kann nicht gelöscht werden';
 
     /// <summary>
     /// Shows Book Card on base of given BookNo.
@@ -134,8 +135,18 @@ table 50100 "BSB Book"
         Page.Run(Page::"BSB Book Card", Rec);
     end;
 
-    var
-        OnDeleteBookErr: Label 'A %1 cannot be deleted', Comment = 'de-DE=Ein %1 kann nicht gelöscht werden';
+    /// <summary>
+    /// The fuction throws an error, if Book ist blocked
+    /// </summary>
+    procedure TestBlocked()
+    begin
+        TestField(Blocked, false);
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeOnDelete(var Rec: Record "BSB Book"; var xRec: Record "BSB Book"; var IsHandled: Boolean)
+    begin
+    end;
 
     //[x] Created automatisch setzten
     //[x] Last Date Modified automatisch setzten

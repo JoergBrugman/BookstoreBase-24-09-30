@@ -13,5 +13,7 @@
     ],
     "al.enableCodeAnalysis": false,
     "editor.snippetSuggestions": "bottom",
-    "workbench.colorTheme": "Default Light+"
+    "workbench.colorTheme": "Default Light+",
+    "xliffSync.parseFromDeveloperNoteOverwrite": true,
+    "xliffSync.parseFromDeveloperNote": true
 }
