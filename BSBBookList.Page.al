@@ -89,21 +89,21 @@ page 50101 "BSB Book List"
 
     local procedure StartDeliverBookHardcover()
     begin
-        Error('Aus Lager picken');
+        Message('Aus Lager picken');
     end;
 
     local procedure StartDeployBookHardcover()
     begin
-        Error('Versand UPS PREMIUM');
+        Message('Versand UPS PREMIUM');
     end;
 
     local procedure StartDeliverBookPaperback()
     begin
-        Error('Print on Demand');
+        Message('Print on Demand');
     end;
 
     local procedure StartDeployBookPaperback()
     begin
-        Error('Versand DPD Standard');
+        Message('Versand DPD Standard');
     end;
 }
